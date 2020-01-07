@@ -4,6 +4,8 @@ define('VERBOSE', false);
 
 $file = $argv[1] ?? 'https://spiro.se/';
 
+echo '# FILE: ', $file, ' #', PHP_EOL;
+
 $d = new DomDocument();
 @$d->loadHTMLFile($file);
 $xpath = new DOMXpath($d);
@@ -21,9 +23,9 @@ if($head_styles->length > 0) {
             continue;
         }
         $hash = base64_encode(hash('sha256', $head_style->textContent, true));
-        $filename = __DIR__ . '/hashes/' . strtr($hash, ['/' => '_']) . '.css';
-        file_put_contents($filename, $head_style->textContent);
-        echo 'sha256-', $hash, ' (see: ', $filename, ' )', PHP_EOL;
+        $filename = 'hashes/' . strtr($hash, ['/' => '_']) . '.css';
+        file_put_contents(__DIR__ . '/' . $filename, $head_style->textContent);
+        echo 'sha256-', $hash, ' (', $filename, ')', PHP_EOL;
     }
 }
 
@@ -41,9 +43,9 @@ if($body_styles->length > 0) {
             continue;
         }
         $hash = base64_encode(hash('sha256', $body_style->textContent, true));
-        $filename = __DIR__ . '/hashes/' . strtr($hash, ['/' => '_']) . '.css';
-        file_put_contents($filename, $body_style->textContent);
-        echo 'sha256-', $hash, ' (see: ', $filename, ' )', PHP_EOL;
+        $filename = 'hashes/' . strtr($hash, ['/' => '_']) . '.css';
+        file_put_contents(__DIR__ . '/' . $filename, $body_style->textContent);
+        echo 'sha256-', $hash, ' (', $filename, ')', PHP_EOL;
     }
 }
 
@@ -67,9 +69,9 @@ if($head_scripts->length > 0) {
             continue;
         }
         $hash = base64_encode(hash('sha256', $head_script->textContent, true));
-        $filename = __DIR__ . '/hashes/' . strtr($hash, ['/' => '_']) . '.js';
-        file_put_contents($filename, $head_script->textContent);
-        echo 'sha256-', $hash, ' (see: ', $filename, ' )', PHP_EOL;
+        $filename = 'hashes/' . strtr($hash, ['/' => '_']) . '.js';
+        file_put_contents(__DIR__ . '/' . $filename, $head_script->textContent);
+        echo 'sha256-', $hash, ' (', $filename, ')', PHP_EOL;
     }
 }
 
@@ -94,8 +96,8 @@ if($body_scripts->length > 0) {
             continue;
         }
         $hash = base64_encode(hash('sha256', $body_script->textContent, true));
-        $filename = __DIR__ . '/hashes/' . strtr($hash, ['/' => '_']) . '.js';
-        file_put_contents($filename, $body_script->textContent);
-        echo 'sha256-', $hash, ' (see: ', $filename, ' )', PHP_EOL;
+        $filename = 'hashes/' . strtr($hash, ['/' => '_']) . '.js';
+        file_put_contents(__DIR__ . '/' . $filename, $body_script->textContent);
+        echo 'sha256-', $hash, ' (', $filename, ')', PHP_EOL;
     }
 }
